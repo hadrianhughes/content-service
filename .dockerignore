@@ -4,3 +4,6 @@
 npm-debug.log
 LICENSE
 README.md
+/__mock-data__
+/__mocks__
+/__tests__
