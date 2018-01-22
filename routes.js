@@ -15,7 +15,9 @@ router.get('/all', (req, res) => {
     log.info({ route: 'all', status: 200 }, 'Responded with 200');
   })
   .catch(err => {
-    log.error({ err: err });
+    res.status(500);
+    res.end();
+    log.error({ err });
   });
 });
 
