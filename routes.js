@@ -3,10 +3,20 @@ const router = express.Router();
 
 const log = require('./lib/logger');
 
+const initApi = require('./lib/initApi');
+const getAll = require('./lib/getAll');
+
 router.get('/all', (req, res) => {
-  res.status(200);
-  res.end();
-  log.info({ route: 'all', status: 200 }, 'Responded with 200');
+  initApi()
+  .then(api => getAll(api))
+  .then(data => {
+    res.status(200);
+    res.send(data);
+    log.info({ route: 'all', status: 200 }, 'Responded with 200');
+  })
+  .catch(err => {
+    log.error({ err: err });
+  });
 });
 
 router.get('/id/:id', (req, res) => {
