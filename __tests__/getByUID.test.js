@@ -1,15 +1,15 @@
-const getByID = require('../lib/getByID');
+const getByUID = require('../lib/getByUID');
 
 const mockData = require('../__mock-data__/doc.json');
 const mockApi = {
-  getByID: string => new Promise ((resolve, reject) => {
+  getByUID: string => new Promise ((resolve, reject) => {
     resolve(mockData);
   })
 }
 
-describe('getByID function', () => {
+describe('getByUID function', () => {
   it('Should return a promise which resolves with an object', () => {
-    getByID(mockApi, 'foo').then(obj => {
+    getByUID(mockApi, 'foo').then(obj => {
       expect(typeof obj).toBe('object');
     })
   });

@@ -6,6 +6,7 @@ const log = require('./lib/logger');
 const initApi = require('./lib/initApi');
 const getAll = require('./lib/getAll');
 const getByID = require('./lib/getByID');
+const getByUID = require('./lib/getByUID');
 
 router.get('/all', async (req, res) => {
   try {
@@ -22,12 +23,12 @@ router.get('/all', async (req, res) => {
   }
 });
 
-router.get('/id/*', async (req, res) => {
-  const params = req.params[0].split('/');
+router.get('/id/:id', async (req, res) => {
+  const { id } = req.params;
 
   try {
     const api = await initApi();
-    const data = await getByID(api, params);
+    const data = await getByID(api, id);
 
     res.status(200);
     res.send(data);
@@ -39,10 +40,21 @@ router.get('/id/*', async (req, res) => {
   }
 });
 
-router.get('/uid/:uid', (req, res) => {
-  res.status(200);
-  res.end();
-  log.info({ route: 'uid', status: 200, params: req.params }, 'Responded with 200');
+router.get('/uid/:type/:uid', async (req, res) => {
+  const { type, uid } = req.params;
+
+  try {
+    const api = await initApi();
+    const data = await getByUID(api, type, uid);
+
+    res.status(200);
+    res.send(data);
+    log.info({ route: 'uid', status: 200, params: req.params }, 'Responded with 200');
+  } catch (err) {
+    res.status(500);
+    res.end();
+    log.error({ err });
+  }
 });
 
 router.get('/tag/:tag', (req, res) => {
