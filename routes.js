@@ -9,7 +9,8 @@ const {
   getByTag,
   getByDate,
   monthNumberToString,
-  log
+  log,
+  getByField
 } = require('./lib');
 
 router.get('/all', async (req, res) => {
@@ -95,25 +96,36 @@ router.get('/date/:year/:month?/:day?', async (req, res) => {
   }
 });
 
-router.get('/field/:field/:value', (req, res) => {
-  res.status(200);
-  res.end();
-  log.info({ route: 'field', status: 200, params: req.params }, 'Responded with 200');
+router.get('/field/:type/:field/:value', async (req, res) => {
+  const { type, field, value } = req.params;
+
+  try {
+    const api = await initApi();
+    const data = await getByField(api, type, field, value);
+
+    res.status(200);
+    res.send(data);
+    log.info({ route: 'field', status: 200, params: req.params }, 'Responded with 200');
+  } catch (err) {
+    res.status(500);
+    res.end();
+    log.error({ err });
+  }
 });
 
-router.get('/type/:type', (req, res) => {
+router.get('/type/:type', async (req, res) => {
   res.status(200);
   res.end();
   log.info({ route: 'type', status: 200, params: req.params }, 'Responded with 200');
 });
 
-router.get('/type/:type/tag/:tag', (req, res) => {
+router.get('/type/:type/tag/:tag', async (req, res) => {
   res.status(200);
   res.end();
   log.info({ route: 'type-tag', status: 200, params: req.params }, 'Responded with 200');
 });
 
-router.get('/type/:type/date/:year/:month?/:day?', (req, res) => {
+router.get('/type/:type/date/:year/:month?/:day?', async (req, res) => {
   res.status(200);
   res.end();
   log.info({ route: 'type-date', status: 200, params: req.params }, 'Responded with 200');
