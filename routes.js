@@ -7,35 +7,36 @@ const initApi = require('./lib/initApi');
 const getAll = require('./lib/getAll');
 const getByID = require('./lib/getByID');
 
-router.get('/all', (req, res) => {
-  initApi()
-  .then(api => getAll(api))
-  .then(data => {
+router.get('/all', async (req, res) => {
+  try {
+    const api = await initApi();
+    const data = await getAll(api);
+
     res.status(200);
     res.send(data);
     log.info({ route: 'all', status: 200 }, 'Responded with 200');
-  })
-  .catch(err => {
+  } catch (err) {
     res.status(500);
     res.end();
     log.error({ err });
-  });
+  }
 });
 
-router.get('/id/*', (req, res) => {
+router.get('/id/*', async (req, res) => {
   const params = req.params[0].split('/');
-  initApi()
-  .then(api => getByID(api, params))
-  .then(data => {
+
+  try {
+    const api = await initApi();
+    const data = await getByID(api, params);
+
     res.status(200);
     res.send(data);
     log.info({ route: 'id', status: 200, params }, 'Responded with 200');
-  })
-  .catch(err => {
+  } catch (err) {
     res.status(500);
     res.end();
     log.error({ err });
-  });
+  }
 });
 
 router.get('/uid/:uid', (req, res) => {
