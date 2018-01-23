@@ -6,21 +6,11 @@ const getApi = endpoint => new Promise ((resolve, reject) => {
 });
 
 const Predicates = {
-  at: (field, value) => new Promise ((resolve, reject) => {
-    resolve(mockData);
-  }),
-  any: (field, value) => new Promise ((resolve, reject) => {
-    resolve(mockData);
-  }),
-  year: (field, value) => new Promise ((resolve, reject) => {
-    resolve(mockData);
-  }),
-  month: (field, value) => new Promise ((resolve, reject) => {
-    resolve(mockData);
-  }),
-  dayOfMonth: (field, value) => new Promise ((resolve, reject) => {
-    resolve(mockData);
-  }),
+  at: () => {},
+  any: () => {},
+  year: () => {},
+  month: () => {},
+  dayOfMonth: () => {},
 }
 
 module.exports = {

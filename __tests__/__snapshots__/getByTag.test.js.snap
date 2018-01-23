@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`getByTag function Should return a promise which resolves with an object when passed a type with the tags 1`] = `undefined`;
+
+exports[`getByTag function Should return a promise which resolves with an object when passed an array of 1 item 1`] = `undefined`;
+
+exports[`getByTag function Should return a promise which resolves with an object when passed an array of multiple items 1`] = `undefined`;

@@ -5,17 +5,13 @@ jest.mock('../__mocks__/prismic-javascript.js');
 const mockData = require('../__mock-data__/doc.json');
 const mockApi = {
   query: q => new Promise ((resolve, reject) => {
-    q.then(p => {
-      resolve(p);
-    })
+    resolve(q);
   })
 };
 
 describe('getByField function', () => {
   it('Should return a promise which resolves with an object', () => {
-    getByField(mockApi, 'type', 'field', 'value').then(obj => {
-      expect(typeof obj).toBe('object');
-    })
+    expect(getByField(mockApi, 'type', 'field', 'value').resolves).toMatchSnapshot();
   });
 });
 

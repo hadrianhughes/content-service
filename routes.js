@@ -9,8 +9,6 @@ const {
   getByTag,
   getByDate,
   getByType,
-  getByTypeTag,
-  getByTypeDate,
   monthNumberToString,
   log,
   getByField,
@@ -27,7 +25,7 @@ router.get('/all', async (req, res) => {
   } catch (err) {
     res.status(500);
     res.end();
-    log.error({ err });
+    log.error({ err: err.stack });
   }
 });
 
@@ -44,7 +42,7 @@ router.get('/id/:id', async (req, res) => {
   } catch (err) {
     res.status(500);
     res.end();
-    log.error({ err });
+    log.error({ err: err.stack });
   }
 });
 
@@ -61,7 +59,7 @@ router.get('/uid/:type/:uid', async (req, res) => {
   } catch (err) {
     res.status(500);
     res.end();
-    log.error({ err });
+    log.error({ err: err.stack });
   }
 });
 
@@ -78,7 +76,7 @@ router.get('/tag/:tags*', async (req, res) => {
   } catch (err) {
     res.status(500);
     res.end();
-    log.error({ err });
+    log.error({ err: err.stack });
   }
 });
 
@@ -95,7 +93,7 @@ router.get('/date/:year/:month?/:day?', async (req, res) => {
   } catch (err) {
     res.status(500);
     res.end();
-    log.error({ err });
+    log.error({ err: err.stack });
   }
 });
 
@@ -112,7 +110,7 @@ router.get('/field/:type/:field/:value', async (req, res) => {
   } catch (err) {
     res.status(500);
     res.end();
-    log.error({ err });
+    log.error({ err: err.stack });
   }
 });
 
@@ -129,7 +127,7 @@ router.get('/type/:type', async (req, res) => {
   } catch (err) {
     res.status(500);
     res.end();
-    log.error({ err });
+    log.error({ err: err.stack });
   }
 });
 
@@ -139,7 +137,7 @@ router.get('/type/:type/tag/:tags*', async (req, res) => {
 
   try {
     const api = await initApi();
-    const data = await getByTypeTag(api, type, tags);
+    const data = await getByTag(api, tags, type);
 
     res.status(200);
     res.send(data);
@@ -147,7 +145,7 @@ router.get('/type/:type/tag/:tags*', async (req, res) => {
   } catch (err) {
     res.status(500);
     res.end();
-    log.error({ err });
+    log.error({ err: err.stack });
   }
 });
 
@@ -156,7 +154,7 @@ router.get('/type/:type/date/:year/:month?/:day?', async (req, res) => {
 
   try {
     const api = await initApi();
-    const data = await getByTypeDate(api, type, year, monthNumberToString(month), day);
+    const data = await getByDate(api, year, monthNumberToString(month), day, type);
 
     res.status(200);
     res.send(data);
@@ -164,7 +162,7 @@ router.get('/type/:type/date/:year/:month?/:day?', async (req, res) => {
   } catch (err) {
     res.status(500);
     res.end();
-    log.error({ err });
+    log.error({ err: err.stack });
   }
 });
 

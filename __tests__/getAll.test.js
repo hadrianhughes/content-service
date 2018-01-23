@@ -9,8 +9,6 @@ const mockApi = {
 
 describe('getAll function', () => {
   it('Should return a promise which resolves with an object', () => {
-    getAll(mockApi).then(obj => {
-      expect(typeof obj).toBe('object');
-    });
+    expect(getAll(mockApi).resolves).toMatchSnapshot();
   });
 });

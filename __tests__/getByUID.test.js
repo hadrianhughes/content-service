@@ -9,8 +9,6 @@ const mockApi = {
 
 describe('getByUID function', () => {
   it('Should return a promise which resolves with an object', () => {
-    getByUID(mockApi, 'foo').then(obj => {
-      expect(typeof obj).toBe('object');
-    })
+    expect(getByUID(mockApi, 'foo').resolves).toMatchSnapshot();
   });
 });
