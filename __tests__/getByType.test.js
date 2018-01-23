@@ -15,6 +15,6 @@ describe('getByType function', () => {
   it('Should return a promise which resolves with an object', () => {
     getByType(mockApi, 'foo').then(obj => {
       expect(typeof obj).toBe('object');
-    })
+    });
   });
 });
