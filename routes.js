@@ -8,9 +8,10 @@ const {
   getByUID,
   getByTag,
   getByDate,
+  getByType,
   monthNumberToString,
   log,
-  getByField
+  getByField,
 } = require('./lib');
 
 router.get('/all', async (req, res) => {
@@ -114,9 +115,20 @@ router.get('/field/:type/:field/:value', async (req, res) => {
 });
 
 router.get('/type/:type', async (req, res) => {
-  res.status(200);
-  res.end();
-  log.info({ route: 'type', status: 200, params: req.params }, 'Responded with 200');
+  const { type } = req.params;
+
+  try {
+    const api = await initApi();
+    const data = await getByType(api, type);
+
+    res.status(200);
+    res.send(data);
+    log.info({ route: 'type', status: 200, params: req.params }, 'Responded with 200');
+  } catch (err) {
+    res.status(500);
+    res.end();
+    log.error({ err });
+  }
 });
 
 router.get('/type/:type/tag/:tag', async (req, res) => {

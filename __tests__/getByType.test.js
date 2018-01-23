@@ -1,4 +1,4 @@
-const getByField = require('../lib/getByField');
+const getByType = require('../lib/getByType');
 
 jest.mock('../__mocks__/prismic-javascript.js');
 
@@ -11,11 +11,10 @@ const mockApi = {
   })
 };
 
-describe('getByField function', () => {
+describe('getByType function', () => {
   it('Should return a promise which resolves with an object', () => {
-    getByField(mockApi, 'type', 'field', 'value').then(obj => {
+    getByType(mockApi, 'foo').then(obj => {
       expect(typeof obj).toBe('object');
     })
   });
 });
-
