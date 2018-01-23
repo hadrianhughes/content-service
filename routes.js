@@ -7,6 +7,7 @@ const initApi = require('./lib/initApi');
 const getAll = require('./lib/getAll');
 const getByID = require('./lib/getByID');
 const getByUID = require('./lib/getByUID');
+const getByTag = require('./lib/getByTag');
 
 router.get('/all', async (req, res) => {
   try {
@@ -57,10 +58,21 @@ router.get('/uid/:type/:uid', async (req, res) => {
   }
 });
 
-router.get('/tag/:tag', (req, res) => {
-  res.status(200);
-  res.end();
-  log.info({ route: 'tag', status: 200, params: req.params }, 'Responded with 200');
+router.get('/tag/:tags*', async (req, res) => {
+  const tags = req.params.tags.split('/');
+
+  try {
+    const api = await initApi();
+    const data = await getByTag(api, tags);
+
+    res.status(200);
+    res.send(data);
+    log.info({ route: 'tag', status: 200, params: req.params }, 'Responded with 200');
+  } catch (err) {
+    res.status(500);
+    res.end();
+    log.error({ err });
+  }
 });
 
 router.get('/date/:year/:month?/:day?', (req, res) => {
