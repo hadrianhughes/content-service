@@ -10,6 +10,7 @@ const {
   getByDate,
   getByType,
   getByTypeTag,
+  getByTypeDate,
   monthNumberToString,
   log,
   getByField,
@@ -151,9 +152,20 @@ router.get('/type/:type/tag/:tags*', async (req, res) => {
 });
 
 router.get('/type/:type/date/:year/:month?/:day?', async (req, res) => {
-  res.status(200);
-  res.end();
-  log.info({ route: 'type-date', status: 200, params: req.params }, 'Responded with 200');
+  const { type, year, month, day } = req.params;
+
+  try {
+    const api = await initApi();
+    const data = await getByTypeDate(api, type, year, monthNumberToString(month), day);
+
+    res.status(200);
+    res.send(data);
+    log.info({ route: 'type-date', status: 200, params: req.params }, 'Responded with 200');
+  } catch (err) {
+    res.status(500);
+    res.end();
+    log.error({ err });
+  }
 });
 
 module.exports = router;
