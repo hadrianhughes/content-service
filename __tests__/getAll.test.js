@@ -13,9 +13,4 @@ describe('getAll function', () => {
       expect(typeof obj).toBe('object');
     });
   });
-
-  it('Should throw an error with invalid api parameter', () => {
-    const promise = getAll({});
-    expect(promise).rejects.toThrow();
-  });
 });

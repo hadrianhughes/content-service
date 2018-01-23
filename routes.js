@@ -5,6 +5,7 @@ const log = require('./lib/logger');
 
 const initApi = require('./lib/initApi');
 const getAll = require('./lib/getAll');
+const getByID = require('./lib/getByID');
 
 router.get('/all', (req, res) => {
   initApi()
@@ -21,10 +22,20 @@ router.get('/all', (req, res) => {
   });
 });
 
-router.get('/id/:id', (req, res) => {
-  res.status(200);
-  res.end();
-  log.info({ route: 'id', status: 200, params: req.params }, 'Responded with 200');
+router.get('/id/*', (req, res) => {
+  const params = req.params[0].split('/');
+  initApi()
+  .then(api => getByID(api, params))
+  .then(data => {
+    res.status(200);
+    res.send(data);
+    log.info({ route: 'id', status: 200, params }, 'Responded with 200');
+  })
+  .catch(err => {
+    res.status(500);
+    res.end();
+    log.error({ err });
+  });
 });
 
 router.get('/uid/:uid', (req, res) => {
