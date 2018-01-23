@@ -11,7 +11,16 @@ const Predicates = {
   }),
   any: (field, value) => new Promise ((resolve, reject) => {
     resolve(mockData);
-  })
+  }),
+  year: (field, value) => new Promise ((resolve, reject) => {
+    resolve(mockData);
+  }),
+  month: (field, value) => new Promise ((resolve, reject) => {
+    resolve(mockData);
+  }),
+  dayOfMonth: (field, value) => new Promise ((resolve, reject) => {
+    resolve(mockData);
+  }),
 }
 
 module.exports = {

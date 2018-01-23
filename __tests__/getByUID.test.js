@@ -5,7 +5,7 @@ const mockApi = {
   getByUID: string => new Promise ((resolve, reject) => {
     resolve(mockData);
   })
-}
+};
 
 describe('getByUID function', () => {
   it('Should return a promise which resolves with an object', () => {

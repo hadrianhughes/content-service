@@ -1,13 +1,16 @@
 const express = require('express');
 const router = express.Router();
 
-const log = require('./lib/logger');
-
-const initApi = require('./lib/initApi');
-const getAll = require('./lib/getAll');
-const getByID = require('./lib/getByID');
-const getByUID = require('./lib/getByUID');
-const getByTag = require('./lib/getByTag');
+const {
+  initApi,
+  getAll,
+  getByID,
+  getByUID,
+  getByTag,
+  getByDate,
+  monthNumberToString,
+  log
+} = require('./lib');
 
 router.get('/all', async (req, res) => {
   try {
@@ -75,10 +78,21 @@ router.get('/tag/:tags*', async (req, res) => {
   }
 });
 
-router.get('/date/:year/:month?/:day?', (req, res) => {
-  res.status(200);
-  res.end();
-  log.info({ route: 'date', status: 200, params: req.params }, 'Responded with 200');
+router.get('/date/:year/:month?/:day?', async (req, res) => {
+  const { year, month, day } = req.params;
+
+  try {
+    const api = await initApi();
+    const data = await getByDate(api, year, monthNumberToString(month), day);
+
+    res.status(200);
+    res.send(data);
+    log.info({ route: 'date', status: 200, params: req.params }, 'Responded with 200');
+  } catch (err) {
+    res.status(500);
+    res.end();
+    log.error({ err });
+  }
 });
 
 router.get('/field/:field/:value', (req, res) => {

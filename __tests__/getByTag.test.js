@@ -9,7 +9,7 @@ const mockApi = {
       resolve(p);
     })
   })
-}
+};
 
 describe('getByTag function', () => {
   it('Should return a promise which resolves with an object when passed an array of 1 item', () => {
