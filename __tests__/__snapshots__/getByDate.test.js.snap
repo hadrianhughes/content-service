@@ -1,9 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`getByTag function Should return a promise which resolves with an object when passed a type with the date 1`] = `undefined`;
-
-exports[`getByTag function Should return a promise which resolves with an object when passed a year 1`] = `undefined`;
-
-exports[`getByTag function Should return a promise which resolves with an object when passed a year and month 1`] = `undefined`;
-
-exports[`getByTag function Should return a promise which resolves with an object when passed a year, month and day 1`] = `undefined`;

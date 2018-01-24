@@ -1,3 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`getAll function Should return a promise which resolves with an object 1`] = `undefined`;

@@ -9,20 +9,32 @@ const mockApi = {
   })
 };
 
-describe('getByTag function', () => {
+describe('getByDate function', () => {
   it('Should return a promise which resolves with an object when passed a year', () => {
-    expect(getByDate(mockApi, 2000).resolves).toMatchSnapshot();
+    expect.assertions(1);
+    getByDate(mockApi, 2000).then(result => {
+      expect(result).toBe(mockData);
+    });
   });
 
   it('Should return a promise which resolves with an object when passed a year and month', () => {
-    expect(getByDate(mockApi, 2000, 'January').resolves).toMatchSnapshot();
+    expect.assertions(1);
+    getByDate(mockApi, 2000, 'January').then(result => {
+      expect(result).toBe(mockData);
+    });
   });
 
   it('Should return a promise which resolves with an object when passed a year, month and day', () => {
-    expect(getByDate(mockApi, 2000, 'January', 1).resolves).toMatchSnapshot();
+    expect.assertions(1);
+    getByDate(mockApi, 2000, 'January').then(result => {
+      expect(result).toBe(mockData);
+    });
   });
 
   it('Should return a promise which resolves with an object when passed a type with the date', () => {
-    expect(getByDate(mockApi, 2000, 'January', 1, 'foo').resolves).toMatchSnapshot();
+    expect.assertions(1);
+    getByDate(mockApi, 2000, 'January', 1, 'foo').then(result => {
+      expect(result).toBe(mockData);
+    });
   });
 });
