@@ -166,4 +166,10 @@ router.get('/type/:type/date/:year/:month?/:day?', async (req, res) => {
   }
 });
 
+router.get('*', (req, res) => {
+  res.status(404);
+  res.end();
+  log.info({ route: 'NOT FOUND', status: 404 }, 'Responded with 404');
+});
+
 module.exports = router;
