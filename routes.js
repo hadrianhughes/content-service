@@ -9,9 +9,10 @@ const {
   getByTag,
   getByDate,
   getByType,
+  getByField,
   monthNumberToString,
   log,
-  getByField,
+  orderByDate,
 } = require('./lib');
 
 router.get('/all', async (req, res) => {
@@ -114,12 +115,15 @@ router.get('/field/:type/:field/:value', async (req, res) => {
   }
 });
 
-router.get('/type/:type', async (req, res) => {
+router.get('/type/:type/:page?', async (req, res) => {
   const { type } = req.params;
+  const pageSize = process.env.RESULTS_PAGE_SIZE || 10;
+  const page = parseInt(req.params.page) || 1;
+  const preview = req.query.preview === '1';
 
   try {
     const api = await initApi();
-    const data = await getByType(api, type);
+    const data = await getByType(api, type, preview, pageSize, page);
 
     res.status(200);
     res.send(data);
