@@ -6,7 +6,6 @@ WORKDIR /usr/src/app
 
 # Environment variables
 ENV PORT 3000
-ENV API_ENDPOINT https://hadrian-blog.prismic.io/api
 
 # Copy package and package-lock before other files
 COPY package*.json ./
